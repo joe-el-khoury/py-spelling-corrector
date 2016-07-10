@@ -12,6 +12,9 @@ cdef class PyToken:
     def __dealloc__(self):
         del self.c_token
 
+    def get_str(self):
+        return self.c_token.get_token_str()
+
     @staticmethod
     cdef PyToken PyToken_from_Token(self, const Token& convert_from):
         """
@@ -27,6 +30,3 @@ cdef class PyToken:
         """
         assert type(convert_from) is PyToken, "convert_from should be a PyToken object"
         return Token(convert_from.get_str())
-
-    def get_str(self):
-        return self.c_token.get_token_str()
