@@ -25,7 +25,7 @@ cdef class PyToken:
         """
         Creates a Token object from a PyToken object.
         """
-        assert type(convert_from) is PyToken, "make sure the second argument is of type PyToken"
+        assert type(convert_from) is PyToken, "convert_from should be a PyToken object"
         return Token(convert_from.get_str())
 
     def get_str(self):
