@@ -13,13 +13,16 @@ class PySpellingCorrectorBuild(build):
         
         self.execute(build, [], 'Compiling spelling corrector...')
 
-EXT = Extension("Token", sources=["cython-src/PyToken.pyx"], language="c++")
+Extensions = [
+    Extension("Token", sources=["cython-src/PyToken.pyx"], language="c++"),
+    Extension("SpellingCorrector", sources=["cython-src/PySpellingCorrector.pyx"], language="c++")
+]
 
 setup(
     name="py-spelling-corrector",
     description="A Python wrapper for a spelling corrector written in C++.",
     author="Joe Khoury",
-    ext_modules=cythonize(EXT),
+    ext_modules=cythonize(Extensions),
     cmdclass={
         'build': PySpellingCorrectorBuild,
     }
