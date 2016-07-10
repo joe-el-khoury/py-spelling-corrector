@@ -16,7 +16,7 @@ cdef class PyToken:
         return self.c_token.get_token_str()
 
     @staticmethod
-    cdef PyToken PyToken_from_Token(self, const Token& convert_from):
+    cdef PyToken PyToken_from_Token(const Token& convert_from):
         """
         Creates a PyToken object from a Token object.
         """
@@ -24,9 +24,8 @@ cdef class PyToken:
         return PyToken(token_str)
 
     @staticmethod
-    cdef Token Token_from_PyToken(self, convert_from):
+    cdef Token Token_from_PyToken(PyToken convert_from):
         """
         Creates a Token object from a PyToken object.
         """
-        assert type(convert_from) is PyToken, "convert_from should be a PyToken object"
         return Token(convert_from.get_str())
