@@ -8,10 +8,10 @@ from subprocess import call
 class PySpellingCorrectorBuild(build):
     def run(self):
         cmd = "make"
-        def compile():
+        def build():
             call(cmd)
         
-        self.execute(compile, [], 'Compiling spelling corrector...')
+        self.execute(build, [], 'Compiling spelling corrector...')
 
 EXT = Extension("Token", sources=["cython-src/PyToken.pyx"], language="c++")
 
