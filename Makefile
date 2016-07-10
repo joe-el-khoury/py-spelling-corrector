@@ -1,9 +1,24 @@
-PyToken.so : bin/Token.o bin/PyToken.o
-	g++ -fPIC -shared -rdynamic bin/PyToken.o bin/Token.o -o bin/PyToken.so
+OBJS = bin/Token.o bin/PyToken.o bin/TokenEditor.o
+CC = g++
+CFLAGS = -c -I/usr/include/python2.7 -std=c++14 -fPIC -shared -rdynamic
+LFLAGS = -fPIC -shared -rdynamic
 
-bin/PyToken.o : cython-src/PyToken.cpp cython-src/PyToken.pyx
-	g++ -I/usr/include/python2.7 -c -std=c++14 -fPIC -shared -rdynamic \
-		cython-src/PyToken.cpp -o bin/PyToken.o
+# Directories
+CYTHONDIR = cython-src
+SPELLDIR = spelling-corrector/src
 
-bin/Token.o : spelling-corrector/src/Token.cpp spelling-corrector/src/Token.h
-	g++ -std=c++14 -fPIC -shared -rdynamic spelling-corrector/src/Token.cpp -o bin/Token.o
+PyToken.so : $(OBJS)
+	$(info Linking...)
+	$(CC) $(LFLAGS) $(OBJS) -o bin/PyToken.so
+
+bin/PyToken.o : $(CYTHONDIR)/PyToken.cpp $(CYTHONDIR)/PyToken.pyx
+	$(CC) $(CFLAGS) $(CYTHONDIR)/PyToken.cpp -o bin/PyToken.o
+
+bin/Token.o : $(SPELLDIR)/Token.cpp $(SPELLDIR)/Token.h $(SPELLDIR)/TokenEditor.cpp
+	$(CC) $(CFLAGS) $(SPELLDIR)/Token.cpp -o bin/Token.o
+
+bin/TokenEditor.o : $(SPELLDIR)/TokenEditor.cpp $(SPELLDIR)/TokenEditor.h $(SPELLDIR)/Token.h
+	$(CC) $(CFLAGS) $(SPELLDIR)/TokenEditor.cpp -o bin/TokenEditor.o
+
+clean:
+	rm -rf bin/*
