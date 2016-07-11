@@ -1,7 +1,7 @@
 # distutils: language = c++
 # distutils: sources = spelling-corrector/src/Token.cpp
 
-from PyToken cimport PyToken
+from PyToken cimport Token
 from libcpp.string cimport string
 
 cdef class PyToken:
