@@ -1,10 +1,7 @@
-cimport PyToken
+from PyToken cimport Token
 from libcpp.string cimport string
 
 cdef extern from "../spelling-corrector/src/SpellingCorrector.h":
-    cdef extern from "../spelling-corrector/src/Token.h":
-        cdef cppclass Token
-    
     cdef cppclass SpellingCorrector:
         SpellingCorrector () except+
 
