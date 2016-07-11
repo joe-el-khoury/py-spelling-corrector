@@ -23,3 +23,14 @@ cdef class PySpellingCorrector:
         """
         assert type(convert_from) is PyToken, "convert_from should be a PyToken"
         return Token(convert_from.get_str())
+
+    def correct_word(self, PyToken_to_correct):
+        assert type(PyToken_to_correct) is PyToken, "pytoken_to_correct should be a PyToken"
+        
+        cdef Token token_to_correct = self.Token_from_PyToken(PyToken_to_correct)
+        cdef Token corrected_token  = self.c_spc.correct_word(token_to_correct)
+        corrected_str = corrected_token.get_token_str()
+        
+        # Create a PyToken with the corrected string.
+        ret = PyToken(corrected_str)
+        return ret
