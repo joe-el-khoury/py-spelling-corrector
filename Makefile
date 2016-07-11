@@ -1,15 +1,16 @@
 OBJS = bin/Token.o bin/PyToken.o bin/TokenEditor.o bin/PySpellingCorrector.o bin/SpellingCorrector.o \
 	bin/Tokenizer.o bin/TokenHistogram.o bin/FileReader.o
 CC = g++
-CFLAGS = -c -I/usr/include/python2.7 -std=c++14 -fPIC -shared -rdynamic
+CFLAGS = -O3 -c -I/usr/include/python2.7 -std=c++14 -fPIC -shared -rdynamic
 LFLAGS = -fPIC -shared -rdynamic
 
 # Directories
 CYTHONDIR = cython-src
 SPELLDIR = spelling-corrector/src
 
-bin/PySpellingCorrector.so : $(OBJS)
+bin/*.so : $(OBJS)
 	$(info Linking...)
+	$(CC) $(LFLAGS) $(OBJS) -o bin/PyToken.so
 	$(CC) $(LFLAGS) $(OBJS) -o bin/PySpellingCorrector.so
 
 bin/PySpellingCorrector.o : $(CYTHONDIR)/PySpellingCorrector.cpp $(CYTHONDIR)/PySpellingCorrector.pyx
