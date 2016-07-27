@@ -13,10 +13,6 @@ cdef class PySpellingCorrector:
     def __dealloc__(self):
         del self.c_spc
 
-    def train(self, file_name):
-        assert type(file_name) is StringType
-        self.c_spc.train(file_name)
-
     cdef Token Token_from_PyToken(self, convert_from):
         """
         Creates a Token object from a PyToken object.
