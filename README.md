@@ -19,12 +19,7 @@ $ git clone --recursive git@github.com:joe-el-khoury/py-spelling-corrector.git
 
 * Build the repository:
 
-First, create a `bin` folder:
-```
-$ mkdir bin
-```
-
-Now, build the project:
+Build the project using the setup file:
 ```
 $ python setup.py build
 ```
