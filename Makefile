@@ -4,6 +4,15 @@ CC = g++
 CFLAGS = -O3 -c -I/usr/include/python2.7 -std=c++14 -fPIC -shared -rdynamic
 LFLAGS = -fPIC -shared -rdynamic
 
+.PHONY: directories
+
+all: directories $(OBJS) bin/*.so
+
+directories: bin
+
+bin:
+	mkdir bin
+
 # Directories
 CYTHONDIR = cython-src
 SPELLDIR = spelling-corrector/src
