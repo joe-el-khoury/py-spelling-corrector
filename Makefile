@@ -1,5 +1,4 @@
-OBJS = bin/Token.o bin/PyToken.o bin/TokenEditor.o bin/PySpellingCorrector.o bin/SpellingCorrector.o \
-	bin/Tokenizer.o bin/TokenHistogram.o bin/FileReader.o
+OBJS = bin/Token.o bin/PyToken.o bin/TokenEditor.o bin/PySpellingCorrector.o bin/SpellingCorrector.o
 CC = g++
 CFLAGS = -O3 -c -I/usr/include/python2.7 -std=c++14 -fPIC -shared -rdynamic
 LFLAGS = -fPIC -shared -rdynamic
@@ -27,15 +26,6 @@ bin/PySpellingCorrector.o : $(CYTHONDIR)/PySpellingCorrector.cpp $(CYTHONDIR)/Py
 
 bin/SpellingCorrector.o : $(SPELLDIR)/SpellingCorrector.cpp $(SPELLDIR)/SpellingCorrector.h $(SPELLDIR)/Tokenizer.h $(SPELLDIR)/TokenHistogram.h $(SPELLDIR)/util/FileReader.h
 	$(CC) $(CFLAGS) $(SPELLDIR)/SpellingCorrector.cpp -o bin/SpellingCorrector.o
-
-bin/Tokenizer.o : $(SPELLDIR)/Tokenizer.cpp $(SPELLDIR)/Tokenizer.h $(SPELLDIR)/Token.h
-	$(CC) $(CFLAGS) $(SPELLDIR)/Tokenizer.cpp -o bin/Tokenizer.o
-
-bin/TokenHistogram.o : $(SPELLDIR)/TokenHistogram.cpp $(SPELLDIR)/TokenHistogram.h $(SPELLDIR)/Token.h
-	$(CC) $(CFLAGS) $(SPELLDIR)/TokenHistogram.cpp -o bin/TokenHistogram.o
-
-bin/FileReader.o : $(SPELLDIR)/util/FileReader.cpp $(SPELLDIR)/util/FileReader.h
-	$(CC) $(CFLAGS) $(SPELLDIR)/util/FileReader.cpp -o bin/FileReader.o
 
 bin/PyToken.o : $(CYTHONDIR)/PyToken.cpp $(CYTHONDIR)/PyToken.pyx
 	$(CC) $(CFLAGS) $(CYTHONDIR)/PyToken.cpp -o bin/PyToken.o
